@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\jobs\ReconcileAccount;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,11 @@ use App\jobs\ReconcileAccount;
 Route::get('/', function () {
     // return view('welcome');
 
-    dispatch(new ReconcileAccount);
+    $user= User::first();
+
+    // dispatch(new ReconcileAccount($user));
+
+    ReconcileAccount::dispatch($user);
 
     return 'Finished';
 });
