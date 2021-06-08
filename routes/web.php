@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\jobs\ReconcileAccount;
+use App\jobs\SendWelcomeEmail;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,17 @@ use App\Models\User;
 Route::get('/', function () {
     // return view('welcome');
 
-    $user= User::first();
+    $user = User::first();
 
     // dispatch(new ReconcileAccount($user));
 
     ReconcileAccount::dispatch($user);
+    SendWelcomeEmail::dispatch();
+    
+
+    // foreach (range(1, 100) as $i) {
+    //     SendWelcomeEmail::dispatch();
+    // }
 
     return 'Finished';
 });
