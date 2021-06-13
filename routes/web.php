@@ -1,9 +1,8 @@
 <?php
 
-use App\jobs\ReconcileAccount;
-use App\jobs\SendWelcomeEmail;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Jobs\ReconcileAccount;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +20,25 @@ Route::get('/', function () {
 
     $user = User::first();
 
-    // dispatch(new ReconcileAccount($user));
+    // // dispatch(new ReconcileAccount($user));
 
     ReconcileAccount::dispatch($user);
-    SendWelcomeEmail::dispatch();
-    
+    // SendWelcomeEmail::dispatch();
 
-    // foreach (range(1, 100) as $i) {
-    //     SendWelcomeEmail::dispatch();
-    // }
+    // // foreach (range(1, 100) as $i) {
+    // //     SendWelcomeEmail::dispatch();
+    // // }
+
+    // $batch = [
+    //     new \App\jobs\PullRepo('project one'),
+    //     new \App\jobs\PullRepo('project two'),
+    //     new \App\jobs\PullRepo('project three'),
+
+    // ];
+
+    // Illuminate\Support\Facades\Bus::batch($batch)
+    // ->allowFailures()
+    // ->dispatch();
 
     return 'Finished';
 });
